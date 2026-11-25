@@ -1,0 +1,12 @@
+# Dependency pins for the Python 3.10 scaffold.
+# FastAPI 0.162.6 raised the minimum Python version to 3.11.
+fastapi==0.162.5
+uvicorn==0.54.0
+pydantic==2.14.4
+httpx==0.28.1
+pysyncobj==0.3.17
+pytest==9.2.0
+
+# Keep FastAPI's dependencies on releases that also support Python 3.10.
+annotated-doc==0.0.6
+starlette==1.7.0

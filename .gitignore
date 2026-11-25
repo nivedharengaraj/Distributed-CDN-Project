@@ -1,0 +1,16 @@
+/local-documentation/
+
+# Local Python environments and generated files.
+/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Per-node configuration, cache, Raft state, and logs.
+/infra/cluster.local.json
+/runtime/
+*.log
+
+# Runtime origin files. Track the empty directory placeholder.
+/origin/objects/*
+!/origin/objects/.gitkeep

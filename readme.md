@@ -8,6 +8,39 @@
 
 > **Scope boundary:** This document specifies the **mandatory image-gallery prototype only**. Video uploads, playback, streaming, transcoding, and adaptive bitrate delivery are **out of scope**. The data model and architecture should be extensible to other media later, but no video functionality is required to finish Scope 1.
 
+## Developer setup
+
+The shared scaffold targets **Python 3.10**. VM 1 reports Python **3.10.12**. Verify the versions on VMs 2 and 3 and test the pinned dependencies there before deploying.
+
+Create a virtual environment and run the scaffold smoke test from the repository root.
+
+**Windows PowerShell**
+
+```powershell
+py -3.10 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pytest
+```
+
+**Linux**
+
+```bash
+python3.10 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pytest
+```
+
+The smoke test checks that the FastAPI app imports and registers the agreed routes. The route handlers return `501` during scaffolding. See the [implementation agreements](docs/implementation.md) for the shared models, component methods, and HTTP responses.
+
+| Lead | Start here |
+| --- | --- |
+| M1 | `edge/config.py`, `infra/`, `scripts/`, and origin setup |
+| M2 | `edge/cache.py` and `tests/test_cache.py` |
+| M3 | `edge/models.py`, `edge/catalog.py`, and `tests/test_catalog.py` |
+| M4 | `edge/main.py`, `frontend/`, and `tests/test_integration.py` |
+
+The architecture notes below describe the original Scope 1 design. Follow the implementation agreements for the current API and the proposed university VM deployment.
+
 ## 1. Project overview
 
 The project is a **small distributed content delivery network (CDN)** that serves a public gallery of static images. Instead of serving every image directly from one origin server, three **edge nodes** can cache images locally, fetch missing content from peer nodes or the origin, and deliver images to clients.
